@@ -1,10 +1,21 @@
 import solara
 import solara.lab
 
-settings_addition = solara.reactive({
-    "total_sum": 25,
-    "number_questions": 2
- })
+from inspect import getsourcefile
+import os.path
+import sys
+
+current_path = os.path.abspath(getsourcefile(lambda:0))
+current_dir = os.path.dirname(current_path)
+parent_dir = current_dir[:current_dir.rfind(os.path.sep)]
+
+sys.path.insert(0, parent_dir)
+
+from state import settings_addition, start_train
+
+def vai():
+    print("FOIIIIII")
+    start_train.set( True )
 
 @solara.component
 def Page():
@@ -23,7 +34,7 @@ def Page():
                         solara.InputInt(label="Number of questions", value=settings_addition.value["number_questions"])
                 
                         with solara.Link("/addition"):
-                            solara.Button("Start train")
+                            solara.Button("Start train", on_click=vai)
                 
                 with solara.lab.Tab("Subtraction"):
                     solara.Markdown("World")
