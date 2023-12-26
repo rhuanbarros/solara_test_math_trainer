@@ -1,1 +1,2 @@
-# math_trainer
+poetry config virtualenvs.in-project true
+
