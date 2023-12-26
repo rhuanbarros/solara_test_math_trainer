@@ -72,11 +72,11 @@ def Page():
         
         # show the question
         if 'n1' in question.value:
-            with solara.Card("Edit"):
+            with solara.Card("Answer quickly"):
                 solara.Markdown(f"""{question.value['n1']} {question.value['operation']} {question.value['n2']}""")
-        
-            with solara.Card("Edit"):
+                
                 solara.InputInt(label="Answer", value=answer, on_value=update_list)
+        
             
             if update_screen.value:
                 df = pd.DataFrame( answer_list.value )
