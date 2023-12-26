@@ -40,27 +40,37 @@ def summed_max_list():
 
 def update_list(data):
     global question
+    
     if answer.value != None and answer.value != "":
+        end_time = time.time()
+        question.value["time"] = end_time - start_time.value
         question.value["user_answer"] = data
         answer_list.value.append( question.value )
+        
         answer.value = ""
         update_screen.value += 1
+        
         global start_train
         start_train.set( False )
         
 @solara.component
 def Page():
     global questions
+    global question
+    global start_time
+    
+    # start / restart train
     if start_train.value == True:
         questions = solara.reactive( summed_max_list() )
         answer_list.set( [] )
     
-    global question
-    # global s
     
     if len(questions.value):
+        # take a question from the list
         question = solara.reactive( questions.value.pop() )
+        start_time = solara.reactive(  time.time() )
         
+        # show the question
         if 'n1' in question.value:
             with solara.Card("Edit"):
                 solara.Markdown(f"""{question.value['n1']} {question.value['operation']} {question.value['n2']}""")
@@ -73,10 +83,9 @@ def Page():
                 # solara.DataFrame( df )
                 solara.display( df )
     else:
-        # global start_train
         start_train.set( False )
         
-        solara.Markdown(f"""Acabaram as questoes""")
+        solara.Markdown(f"""Results""")
         
         df = pd.DataFrame( answer_list.value )
         # solara.DataFrame( df )

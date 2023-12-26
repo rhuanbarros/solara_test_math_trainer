@@ -13,8 +13,7 @@ sys.path.insert(0, parent_dir)
 
 from state import settings_addition, start_train
 
-def vai():
-    print("FOIIIIII")
+def restart_train():
     start_train.set( True )
 
 @solara.component
@@ -34,7 +33,7 @@ def Page():
                         solara.InputInt(label="Number of questions", value=settings_addition.value["number_questions"])
                 
                         with solara.Link("/addition"):
-                            solara.Button("Start train", on_click=vai)
+                            solara.Button("Start train", on_click=restart_train)
                 
                 with solara.lab.Tab("Subtraction"):
                     solara.Markdown("World")
